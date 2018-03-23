@@ -10,5 +10,5 @@ $ npm install last-click
 
 ## Usage
 ```javascript
-const lastClick = require('last-click');
+const lastClick = require('last-click')();
 ```
