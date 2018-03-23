@@ -1,39 +1,57 @@
 "use strict";
 
-var settings = {
-    sources: [
-        {referrer: 'google', 'value': 'self'},
-        {referrer: 'yahoo', 'value': 'self'},
-        {referrer: 'bing', 'value': 'self'},
-        {queryParameter: 'gclid', 'value': 'adwords'},
-        {queryParameter: 'utm_source', 'value': 'self'}
-    ],
-    cookie: {
-        name: 'last_click',
-        expires: 30
-    }
-};
+module.exports = create;
 
-function lastClick() {
-    var obj = {};
+const cookie = require('cookie');
+const queryString = require('query-string');
+
+function create() {
+    var settings = {
+        sources: [
+            {referrer: 'google', 'value': 'self'},
+            {referrer: 'yahoo', 'value': 'self'},
+            {referrer: 'bing', 'value': 'self'},
+            {queryParameter: 'gclid', 'value': 'adwords'},
+            {queryParameter: 'utm_source', 'value': 'self'}
+        ],
+        cookie: {
+            name: 'last_click',
+            expires: 30 * 24 * 60 * 60 // 30 days in seconds
+        }
+    };
+
+    var obj = {
+        setLastSource: setLastSource,
+        getLastClick: getLastClick,
+        checkLastClick: checkLastClick,
+        setCookieName: setCookieName,
+        setExpires: setExpires,
+        addSource: addSource
+    };
+
+    obj.checkLastClick();
+
+    return obj;
 
     /**
      * @param {String} value
-     * @return {{}}
      */
-    obj.setLastSource = function (value) {
+    function setLastSource(value) {
         var date = new Date();
-        date.setTime(date.getTime() + (settings.cookie.expires * 24 * 60 * 60 * 1000));
-        var expires = "; expires=" + date.toUTCString();
-        document.cookie = settings.cookie.name + "=" + value + expires + "; path=/";
+        date.setTime(date.getTime() + (settings.cookie.expires * 1000));
 
-        return obj;
-    };
+        document.cookie = cookie.serialize(settings.cookie.name, String(query.name), {
+            httpOnly: true,
+            maxAge: settings.cookie.expires,
+            expires: date,
+            path: '/'
+        });
+    }
 
     /**
      * @return {String|*}
      */
-    obj.getLastClick = function () {
+    function getLastClick() {
         var nameEQ = settings.cookie.name + "=";
         var cookies = document.cookie.split(';');
 
@@ -47,12 +65,12 @@ function lastClick() {
             }
         }
         return null;
-    };
+    }
 
     /**
      * @return {{}}
      */
-    obj.checkLastClick = function () {
+    function checkLastClick() {
         var source;
 
         settings.sources.forEach(function (source) {
@@ -73,38 +91,37 @@ function lastClick() {
                     }
                 }
 
-                obj.setLastSource(val);
+                setLastSource(val);
             }
 
         });
-
-        return obj;
-    };
+        return obj
+    }
 
     /**
      * @param {String} name
      * @return {{}}
      */
-    obj.setCookieName = function (name) {
+    function setCookieName(name) {
         settings.cookie.name = name;
-        return obj;
-    };
+        return obj
+    }
 
     /**
      * @param {Number} expires
      * @return {{}}
      */
-    obj.setExpires = function (expires) {
+    function setExpires(expires) {
         settings.cookie.expires = parseInt(expires);
-        return obj;
-    };
+        return obj
+    }
 
     /**
      * @param {String} queryParameter
      * @param {String|function|undefined} value
      * @return {{}}
      */
-    obj.addSource = function (queryParameter, value) {
+    function addSource(queryParameter, value) {
         for(var i = 0; i < settings.sources.length; i++) {
             if(settings.sources[i].queryParameter === queryParameter) {
                 return obj;
@@ -114,9 +131,8 @@ function lastClick() {
             queryParameter: queryParameter,
             value: value ? value : 'self'
         });
-
-        return obj;
-    };
+        return obj
+    }
 }
 
 function getQueryParameterByName(name) {
@@ -125,5 +141,3 @@ function getQueryParameterByName(name) {
         results = regex.exec(location.search);
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
-
-module.exports = lastClick;
