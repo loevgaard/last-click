@@ -1,0 +1,23 @@
+{
+  "name": "last-click",
+  "version": "0.1.0",
+  "description": "Saves the last external website a user clicked before arriving on your website",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loevgaard/last-click.git"
+  },
+  "keywords": [
+    "last",
+    "click"
+  ],
+  "author": "Joachim Loevgaard <joachim@loevgaard.dk> (http://www.loevgaard.dk)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/loevgaard/last-click/issues"
+  },
+  "homepage": "https://github.com/loevgaard/last-click#readme"
+}
