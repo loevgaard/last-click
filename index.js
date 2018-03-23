@@ -126,4 +126,4 @@ function getQueryParameterByName(name) {
     return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-module.exports = lastClick();
+module.exports = lastClick;
