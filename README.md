@@ -16,6 +16,12 @@ $ npm install last-click
 ## Usage
 ```javascript
 const lastClick = require('last-click')();
+console.log(lastClick.getLastClick());
+```
+
+## Test
+```bash
+$ npm test
 ```
 
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
