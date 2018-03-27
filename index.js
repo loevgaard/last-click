@@ -79,7 +79,6 @@ function create(document, settings) {
                     }
                 }
 
-
                 save(val);
             }
         });

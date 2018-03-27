@@ -15,7 +15,23 @@ $ npm install last-click
 
 ## Usage
 ```javascript
-const lastClick = require('last-click')();
+// these are the default settings used in the library
+// you can add more sources if you want
+const defaultSettings = {
+    sources: [
+        {referrer: 'google'},
+        {referrer: 'yahoo'},
+        {referrer: 'bing'},
+        {queryParameter: 'gclid', 'value': 'adwords'},
+        {queryParameter: 'utm_source'}
+    ],
+    cookie: {
+        name: 'last_click',
+        expires: 30 * 24 * 60 * 60 // 30 days in seconds
+    }
+};
+
+const lastClick = require('last-click')(defaultSettings);
 console.log(lastClick.getLastClick());
 ```
 
