@@ -5,5 +5,5 @@ node_js:
   - "8"
 
 after_success:
-  - npm install ocular.js
-  - $(npm bin)/ocular ./coverage/clover.xml
+  - npm install -g ocular.js
+  - ocular coverage/clover.xml
