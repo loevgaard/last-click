@@ -4,7 +4,10 @@ node_js:
   - "7"
   - "8"
 
-after_success:
+script:
+  - npm test
+
+after_script:
   - ls
   - ls coverage
   - npm install -g ocular.js
