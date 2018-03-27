@@ -8,7 +8,5 @@ script:
   - npm test
 
 after_script:
-  - ls
-  - ls coverage
   - npm install -g ocular.js
   - ocular coverage/clover.xml
