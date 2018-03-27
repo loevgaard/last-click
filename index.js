@@ -86,7 +86,6 @@ function create(document, settings) {
     }
 
     /**
-     *
      * @param {Object} obj
      * @param {String} property
      * @return {boolean}
