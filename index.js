@@ -13,6 +13,7 @@ function create(document, settings) {
             {referrer: 'yahoo'},
             {referrer: 'bing'},
             {queryParameter: 'gclid', 'value': 'adwords'},
+            {queryParameter: 'msclkid', 'value': 'bingads'},
             {queryParameter: 'utm_source'}
         ],
         cookie: {
